@@ -4,6 +4,8 @@ from book_repository import BookRepository
 from book import Book
 from user import User
 from user_repository import UserRepository
+from film import Film
+from film_repository import FilmRepository
 from login_required import *
 
 app = Flask(__name__)
@@ -39,6 +41,24 @@ def create_book():
     book = Book(title=book_details["title"], author=book_details["author"])
     book_repository.create(book)
     return redirect("/books")
+
+@app.route("/films", methods=["GET"])
+def films():
+    connection = DatabaseConnection()
+    connection.connect()
+    film_repository = FilmRepository(connection)
+    films = film_repository.all()
+    return render_template("films.html", films=films)
+
+@app.route('/films', methods=['POST'])
+def create_film():
+    connection = DatabaseConnection()
+    connection.connect()
+    film_repository = FilmRepository(connection)
+    film_details = request.form
+    film = Film(title=film_details["title"], director=film_details["director"])
+    film_repository.create(film)
+    return redirect("/films")
 
 @app.route('/users', methods=['POST'])
 def create_user():

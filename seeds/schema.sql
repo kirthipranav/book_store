@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS films;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -12,3 +13,9 @@ CREATE TABLE books (
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE films (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    director VARCHAR(255) NOT NULL
+); 

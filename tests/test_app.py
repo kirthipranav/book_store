@@ -11,7 +11,6 @@ def test_get_books_returns_a_200():
     response = client.get("/books")
     assert response.status_code == 200
 
-
 def test_get_books_returns_all_the_books():
     client = app.test_client()
     response = client.get("/books")
@@ -50,3 +49,14 @@ def test_get_authors_returns_all_the_authors():
             "dob": "1979-11-11"
         }
         ]
+
+def test_get_films_returns_a_200():
+    client = app.test_client()
+    response = client.get("/films")
+    assert response.status_code == 200
+
+def test_get_films_returns_all_the_films():
+    client = app.test_client()
+    response = client.get("/films")
+    assert "Interstellar" in response.text
+    assert "The Odyssey" in response.text
