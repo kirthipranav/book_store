@@ -1,6 +1,6 @@
 import sys
 import os
-import asyncio
+from database_connection import DatabaseConnection
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -56,6 +56,10 @@ def test_get_films_returns_a_200():
     assert response.status_code == 200
 
 def test_get_films_returns_all_the_films():
+    connection = DatabaseConnection()
+    connection.connect()
+    connection.execute("TRUNCATE TABLE films;")
+    connection.execute("INSERT INTO films (title, director) VALUES ('Interstellar', 'Christopher Nolan');")
     client = app.test_client()
     response = client.get("/films")
     assert "Interstellar" in response.text
